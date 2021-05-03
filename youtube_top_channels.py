@@ -20,7 +20,7 @@ def process_channel(channel_id, channel_snippet, channel_statistics):
 with open("config.yml", "r", encoding="utf-8") as f:
     config = yaml.safe_load(f)
 
-MAX_CHANNELS = 10 ** 2
+MAX_CHANNELS = 10 ** 3 * 2
 API_KEY = config["API_KEY"]
 SEARCH_API_URL = "https://www.googleapis.com/youtube/v3/search"
 CHANNEL_API_URL = "https://www.googleapis.com/youtube/v3/channels"
@@ -56,9 +56,11 @@ pbar = tqdm(total=MAX_CHANNELS)
 with open(os.path.join(OUTPUT_FOLDER, "top_channels.csv"), "w", encoding="utf-8") as f:
     w = csv.DictWriter(f, fieldnames=OUTPUT_FIELDS)
     w.writeheader()
-    while count < MAX_CHANNELS:
+    pageToken = "temp"
+    while count < MAX_CHANNELS and pageToken:
         r = requests.get(SEARCH_API_URL, params=search_params).json()
-        search_params.update({"pageToken": r.get("nextPageToken")})
+        pageToken = r.get("nextPageToken")
+        search_params.update({"pageToken": pageToken})
 
         channel_ids = [x["id"]["channelId"] for x in r["items"]]
         channel_params.update({"id": ",".join(channel_ids)})
