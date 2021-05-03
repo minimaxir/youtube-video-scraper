@@ -1,3 +1,4 @@
 config.yml
 *.csv
 *test.py
+.DS_Store
