@@ -1,0 +1,33 @@
+API_KEY: <FILL IN>
+output_folder: data
+channel_ids:
+  - UC-lHJZR3Gqxm24_Vd_AJ5Yw # PewDiePie
+  - UC295-Dw_tDNtZXFeAPAW6Aw # 5-Minute Crafts
+  - UCX6OQ3DkcsbYNE6H8uQQuVA # MrBeast
+  - UCRijo3ddMTht_IHyNSNXpNQ # Dude Perfect
+  - UC4rlAVgAK0SGk-yTfe48Qpw # BRIGHT SIDE
+  - UCp0hYYBW6IMayGgR-WeoCvQ # TheEllenShow
+  - UC7_YxT-KID8kRbqZo7MyscQ # Markiplier
+  - UC8-Th83bH_thdKZDJCrn88g # The Tonight Show Starring Jimmy Fallon
+  - UCpB959t8iPrxQWj7G6n0ctQ # SSSniperWolf
+  - UCJ0uqCI0Vqr2Rrt1HseGirg # The Late Late Show with James Corden
+  - UCucot-Zp428OwkyRm2I7v2Q # James Charles
+  - UCY30JRSgfhYXA6i6xX1erWg # Smosh
+  - UCAW-NpUFkMyCNrvRSSGIvDQ # Ninja
+  - UCwD4x63A9KC7Si2RuSfg-SA # Lucas and Marcus
+  - UCG8rbF3g2AMX70yOd8vqIZg # Logan Paul
+  - UC7TTtOQKMXTWWMtWQMIgVSA # Collins Key
+  - UCSAUGyc_xA8uYzaIVG6MESQ # nigahiga
+  - UCV9_KinVpV-snHe3C3n1hvA # shane
+  - UCcgVECVN4OKV6DH1jLkqmcA # Jake Paul
+  - UCJFp8uSYCjXOMnkUyb3CQ3Q # Tasty
+  - UCpko_-a4wgz2u_DgDgd9fqA # BuzzFeedVideo
+  - UC0v-tlzsn0QZwJnkiaUSJVQ # REACT
+  - UC9gFih9rw0zNCK3ZtoKQQyA # JennaMarbles
+  - UCY1kMZp36IQSyNx_9h4mpCg # Mark Rober
+  - UCsTcErHg8oDvUnTzoqsYeNw # Unbox Therapy
+  - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
+  - UCXuqSBlHAE6Xw-yeJA0Tunw # Linus Tech Tips
+  - UCkvK_5omS-42Ovgah8KRKtg # jeffreestar
+  - UCBa659QWEk1AI4Tg--mrJ2A # Tom Scott
+  - UCBUVGPsJzc1U8SECMgBaMFw # BuzzFeed Multiplayer
