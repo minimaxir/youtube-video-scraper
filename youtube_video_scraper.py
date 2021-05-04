@@ -3,6 +3,7 @@ import csv
 import os
 from tqdm import tqdm
 import requests
+import re
 
 
 def process_video(video_snippet):
@@ -20,7 +21,8 @@ API_KEY = config["API_KEY"]
 API_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
 OUTPUT_FOLDER = config["output_folder"]
 OUTPUT_FIELDS = ["video_id", "title", "video_published_at"]
-uploads_ids = config["uploads_ids"]
+channel_ids = config["channel_ids"]
+uploads_ids = [re.sub(r"^UC", "UU", x) for x in channel_ids]
 
 params = {
     "key": API_KEY,
