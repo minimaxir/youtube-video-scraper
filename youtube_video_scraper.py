@@ -3,7 +3,7 @@ import csv
 import os
 from tqdm import tqdm
 import requests
-import re
+import time
 
 
 def process_video(video_snippet):
@@ -18,48 +18,66 @@ with open("config.yml", "r", encoding="utf-8") as f:
     config = yaml.safe_load(f)
 
 API_KEY = config["API_KEY"]
-API_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
+CHANNELS_API_URL = "https://www.googleapis.com/youtube/v3/channels"
+PLAYLIST_API_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
 OUTPUT_FOLDER = config["output_folder"]
 OUTPUT_FIELDS = ["video_id", "title", "video_published_at"]
 channel_ids = config["channel_ids"]
-uploads_ids = [re.sub(r"^UC", "UU", x) for x in channel_ids]
 
-params = {
+channels_params = {
+    "key": API_KEY,
+    "part": "contentDetails",
+}
+
+playlist_params = {
     "key": API_KEY,
     "part": "snippet",
     "maxResults": 50,
 }
 
-for uploads_id in uploads_ids:
-    params.update({"playlistId": uploads_id})
+for channel_id in channel_ids:
+    playlist_params.update({"pageToken": None})
+    channels_params.update({"id": channel_id})
+
     r = requests.get(
-        API_URL,
-        params=params,
+        CHANNELS_API_URL,
+        params=channels_params,
     ).json()
-    channel_name = r["items"][0]["snippet"]["channelTitle"]
-    pageToken = r.get("nextPageToken")
-    pbar = tqdm(total=r["pageInfo"]["totalResults"])
-    print(f"Scraping {channel_name}'s videos:")
-    with open(
-        os.path.join(OUTPUT_FOLDER, f"{channel_name}.csv"), "w", encoding="utf-8"
-    ) as f:
-        w = csv.DictWriter(f, fieldnames=OUTPUT_FIELDS)
-        w.writeheader()
 
-        # process first page we already queried
-        for video in r["items"]:
-            w.writerow(process_video(video["snippet"]))
-        pbar.update(len(r["items"]))
+    uploads_id = r["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
-        # process the rest
-        while pageToken:
-            params.update({"pageToken": pageToken})
-            r = requests.get(
-                API_URL,
-                params=params,
-            ).json()
+    playlist_params.update({"playlistId": uploads_id})
+    r = requests.get(
+        PLAYLIST_API_URL,
+        params=playlist_params,
+    ).json()
+
+    if "items" in r:
+        channel_name = r["items"][0]["snippet"]["channelTitle"]
+        pageToken = r.get("nextPageToken")
+        print(f"Scraping {channel_name}'s videos:")
+        pbar = tqdm(total=r["pageInfo"]["totalResults"])
+        with open(
+            os.path.join(OUTPUT_FOLDER, f"{channel_name}.csv"), "w", encoding="utf-8"
+        ) as f:
+            w = csv.DictWriter(f, fieldnames=OUTPUT_FIELDS)
+            w.writeheader()
+
+            # process first page we already queried
             for video in r["items"]:
                 w.writerow(process_video(video["snippet"]))
             pbar.update(len(r["items"]))
-            pageToken = r.get("nextPageToken")
-    pbar.close()
+
+            # process the rest
+            while pageToken:
+                playlist_params.update({"pageToken": pageToken})
+                r = requests.get(
+                    PLAYLIST_API_URL,
+                    params=playlist_params,
+                ).json()
+                for video in r["items"]:
+                    w.writerow(process_video(video["snippet"]))
+                pbar.update(len(r["items"]))
+                pageToken = r.get("nextPageToken")
+                time.sleep(0.1)
+        pbar.close()
