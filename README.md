@@ -16,15 +16,19 @@ pip3 install requests tqdm pyyaml
 
 ### Config
 
-The `config.yml` file also contains 30 very-popular YouTube channels, manualy sourced from the Top US YouTube Channels via Socialblade to represent the YouTube "voice." The presence of a channel is not necessairly an endorsement of their content: **please do not send a pull request adding or removing channels.**
+The `config.yml` file also contains 30 very-popular YouTube channels, manualy sourced from the Top US YouTube Channels via Socialblade to represent the YouTube "voice." The presence of a channel is not necessarily an endorsement of their content: **please do not send a pull request adding or removing channels.**
 
-You can get a channel ID by looking at the URL of a channel page. Channel IDs always begin with `UC`. If not present (i.e. the channel has a custom channel name URL), reloading the channel page will surface the ID.
+You can get a channel ID by looking at the URL of a channel page. Channel IDs always begin with `UC`, e.g. https://www.youtube.com/channel/UCpko_-a4wgz2u_DgDgd9fqA. If not present (i.e. the channel has a custom channel name URL), reloading the channel page will surface the ID.
 
 ## Running The Scripts
 
 The main script is `youtube_video_scraper.py`, which takes the channels specified in `config.yml` and gathers the video ID, title, and publish timestamps for all videos in each channel and places it in `output_folder`, with a seperate CSV for each channel.
 
 If you want to train an AI on YouTube Video Titles, you can run `youtube_video_titles.py`, which extracts only the titles from all the CSVs in the `output_folder`, shuffles them to avoid data leakage, and resaves it as a single-column CSV titled `titles.csv`.
+
+## TBA
+
+Another script to take the `video_id` for each downloaded video in each CSV and augment it with much more metadata (including performance statistics and video tags).
 
 ## Ethics
 
