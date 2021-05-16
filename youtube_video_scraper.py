@@ -36,7 +36,6 @@ playlist_params = {
 }
 
 for channel_id in channel_ids:
-    playlist_params.update({"pageToken": None})
     channels_params.update({"id": channel_id})
 
     r = requests.get(
@@ -44,6 +43,7 @@ for channel_id in channel_ids:
         params=channels_params,
     ).json()
 
+    # the uploads_id indicates the playlist where a channel's uploads are located
     uploads_id = r["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
     playlist_params.update({"playlistId": uploads_id})
@@ -81,3 +81,5 @@ for channel_id in channel_ids:
                 pageToken = r.get("nextPageToken")
                 time.sleep(0.1)
         pbar.close()
+        # reset pageToken for new channel
+        playlist_params.update({"pageToken": None})
