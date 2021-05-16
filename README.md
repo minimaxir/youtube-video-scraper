@@ -18,7 +18,7 @@ pip3 install requests tqdm pyyaml
 
 The `config.yml` file also contains 30 very-popular YouTube channels, manualy sourced from the Top US YouTube Channels via Socialblade to represent the YouTube "voice." The presence of a channel is not necessarily an endorsement of their content: **please do not send a pull request adding or removing channels.**
 
-You can get a channel ID by looking at the URL of a channel page. Channel IDs always begin with `UC`, e.g. https://www.youtube.com/channel/UCpko_-a4wgz2u_DgDgd9fqA. If not present (i.e. the channel has a custom channel name URL), reloading the channel page will surface the ID.
+You can get a channel ID by looking at the end of the URL of a channel page, such as `https://www.youtube.com/channel/UCpko_-a4wgz2u_DgDgd9fqA`. Channel IDs always begin with `UC`. If not present (i.e. the channel has a custom channel name URL), reloading the channel page will surface the ID.
 
 ## Running The Scripts
 
