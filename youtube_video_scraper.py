@@ -58,7 +58,9 @@ for channel_id in channel_ids:
         print(f"Scraping {channel_name}'s videos:")
         pbar = tqdm(total=r["pageInfo"]["totalResults"])
         with open(
-            os.path.join(OUTPUT_FOLDER, f"{channel_name}.csv"), "w", encoding="utf-8"
+            os.path.join(OUTPUT_FOLDER, f"{channel_name}.csv".replace(os.sep, "_")),
+            "w",
+            encoding="utf-8",
         ) as f:
             w = csv.DictWriter(f, fieldnames=OUTPUT_FIELDS)
             w.writeheader()
