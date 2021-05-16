@@ -1,4 +1,4 @@
-# ai-generated-magic-cards
+# youtube-video-scraper
 
 Tools for scraping YouTube video metadata from the YouTube Data API v3 given a list of specified channels. The main intent of this tool is to bulk-scrape titles on publically-available video titles for training with a text-generating AI with a tool such as aitextgen.
 
@@ -8,10 +8,10 @@ For scraping only titles, this script can process about 500,000 videos per 24 ho
 
 First, you need to get an API Key for the YouTube Data v3 API. This can be done by creating a project in Google Cloud Platform and adding access to the YouTube Data v3 API. Then, put this key in the `config.yml` under `API_KEY`.
 
-The Python scripts depend on `requests` and `tqdm`. To install:
+The Python scripts depend on `requests`, `tqdm`, and `pyyaml`. To install:
 
 ```sh
-pip3 install requests tqdm
+pip3 install requests tqdm pyyaml
 ```
 
 ### Config
