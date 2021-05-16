@@ -8,7 +8,7 @@ with open("config.yml", "r", encoding="utf-8") as f:
 
 OUTPUT_FOLDER = config["output_folder"]
 
-files = os.listdir(OUTPUT_FOLDER)
+files = [x for x in os.listdir(OUTPUT_FOLDER) if x != ".DS_Store"]
 titles = []
 
 # read the titles from each CSV in the `OUTPUT_FOLDER`
